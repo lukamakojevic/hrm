@@ -22,8 +22,10 @@ public class EmployeeController {
     }
 
     @GetMapping(value = "/employees")
-    public ResponseEntity<List<Employee>> read() {
-        return ResponseEntity.ok(employeeService.read());
+    public ResponseEntity<List<Employee>> read(
+            @RequestParam(required = false) List<String> names,
+            @RequestParam(required = false) List<String> teamNames) {
+        return ResponseEntity.ok(employeeService.read(names, teamNames));
     }
 
     @GetMapping(value = "/employees/{id}")

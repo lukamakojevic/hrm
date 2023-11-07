@@ -6,6 +6,7 @@ import com.hyperoptic.homework.hrm.exceptions.ExceptionSupplier;
 import com.hyperoptic.homework.hrm.mappers.EmployeeMapper;
 import com.hyperoptic.homework.hrm.models.Employee;
 import com.hyperoptic.homework.hrm.repositories.EmployeeRepository;
+import com.hyperoptic.homework.hrm.repositories.SearchRepository;
 import com.hyperoptic.homework.hrm.repositories.TeamRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,9 +19,10 @@ import static java.util.Objects.nonNull;
 @RequiredArgsConstructor
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
-    private final EmployeeMapper employeeMapper;
-
     private final TeamRepository teamRepository;
+    private final SearchRepository searchRepository;
+
+    private final EmployeeMapper employeeMapper;
 
     public Employee create(Employee employee) {
         TeamEntity teamEntity = null;
@@ -35,8 +37,8 @@ public class EmployeeService {
         return employeeMapper.toDto(employeeRepository.saveAndFlush(employeeEntity));
     }
 
-    public List<Employee> read() {
-        return employeeMapper.toDtos(employeeRepository.findAll());
+    public List<Employee> read(List<String> names, List<String> teamNames) {
+        return employeeMapper.toDtos(searchRepository.findEmployees(names, teamNames));
     }
 
     public Employee read(Integer id) {

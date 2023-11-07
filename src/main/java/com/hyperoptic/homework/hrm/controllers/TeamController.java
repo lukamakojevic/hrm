@@ -22,8 +22,10 @@ public class TeamController {
     }
 
     @GetMapping(value = "/teams")
-    public ResponseEntity<List<Team>> read() {
-        return ResponseEntity.ok(teamService.read());
+    public ResponseEntity<List<Team>> read(
+            @RequestParam(required = false) List<String> names,
+            @RequestParam(required = false) List<String> teamLeadNames) {
+        return ResponseEntity.ok(teamService.read(names, teamLeadNames));
     }
 
     @GetMapping(value = "/teams/{id}")
