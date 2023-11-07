@@ -7,5 +7,5 @@ public class ErrorCodes {
     }
 
     public static final String INTERNAL_SERVER_ERROR = "com.hyperoptic.homework.hrm.internalServerError";
-    public static final String NOT_FOUND = "com.hyperoptic.homework.hrm.notFound";
+    public static final String BAD_REQUEST = "com.hyperoptic.homework.hrm.badRequest";
 }

@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static java.util.Objects.nonNull;
+
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
@@ -21,8 +23,12 @@ public class EmployeeService {
     private final TeamRepository teamRepository;
 
     public Employee create(Employee employee) {
-        TeamEntity teamEntity = teamRepository.findById(employee.getTeamId())
-                .orElseThrow(ExceptionSupplier.NOT_FOUND);
+        TeamEntity teamEntity = null;
+
+        if (nonNull(employee.getTeamId())) {
+            teamEntity = teamRepository.findById(employee.getTeamId())
+                    .orElseThrow(ExceptionSupplier.BAD_REQUEST);
+        }
 
         EmployeeEntity employeeEntity = employeeMapper.toEntity(employee, teamEntity);
 
@@ -35,15 +41,19 @@ public class EmployeeService {
 
     public Employee read(Integer id) {
         return employeeMapper.toDto(employeeRepository.findById(id)
-                .orElseThrow(ExceptionSupplier.NOT_FOUND));
+                .orElseThrow(ExceptionSupplier.BAD_REQUEST));
     }
 
     public Employee update(Integer id, Employee employee) {
         employeeRepository.findById(id)
-                .orElseThrow(ExceptionSupplier.NOT_FOUND);
+                .orElseThrow(ExceptionSupplier.BAD_REQUEST);
 
-        TeamEntity teamEntity = teamRepository.findById(employee.getTeamId())
-                .orElseThrow(ExceptionSupplier.NOT_FOUND);
+        TeamEntity teamEntity = null;
+
+        if (nonNull(employee.getTeamId())) {
+            teamEntity = teamRepository.findById(employee.getTeamId())
+                    .orElseThrow(ExceptionSupplier.BAD_REQUEST);
+        }
 
         employee.setId(id);
         EmployeeEntity employeeEntity = employeeMapper.toEntity(employee, teamEntity);
@@ -53,7 +63,7 @@ public class EmployeeService {
 
     public void delete(Integer id) {
         employeeRepository.findById(id)
-                .orElseThrow(ExceptionSupplier.NOT_FOUND);
+                .orElseThrow(ExceptionSupplier.BAD_REQUEST);
 
         employeeRepository.deleteById(id);
     }
