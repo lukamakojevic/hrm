@@ -1,5 +1,6 @@
 package com.hyperoptic.homework.hrm.entities;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @Table(name = "employee")
 @Getter
 @Setter
+@Builder
 public class EmployeeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,11 +1,13 @@
 package com.hyperoptic.homework.hrm.models;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 
 @Data
+@Builder
 public class Employee {
     @Schema(example = "789")
     private Integer id;
