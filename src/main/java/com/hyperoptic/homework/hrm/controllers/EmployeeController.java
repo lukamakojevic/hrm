@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController(value = "/api")
+@RestController
 @RequiredArgsConstructor
 @Tag(name = "REST endpoints for managing employees")
 @RequestMapping(value = "/api/employees")
