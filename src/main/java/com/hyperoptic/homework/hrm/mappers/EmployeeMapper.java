@@ -20,7 +20,5 @@ public interface EmployeeMapper {
     @Mapping(target = "name", source = "employee.name")
     @Mapping(target = "team", source = "teamEntity")
     EmployeeEntity toEntity(Employee employee, TeamEntity teamEntity);
-
-    List<EmployeeEntity> toEntities(List<Employee> employees);
 }
 

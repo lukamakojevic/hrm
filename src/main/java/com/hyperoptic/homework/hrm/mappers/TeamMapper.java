@@ -1,5 +1,6 @@
 package com.hyperoptic.homework.hrm.mappers;
 
+import com.hyperoptic.homework.hrm.entities.EmployeeEntity;
 import com.hyperoptic.homework.hrm.entities.TeamEntity;
 import com.hyperoptic.homework.hrm.models.Team;
 import org.mapstruct.Mapper;
@@ -15,7 +16,8 @@ public interface TeamMapper {
 
     List<Team> toDtos(List<TeamEntity> teamEntities);
 
-    TeamEntity toEntity(Team team);
-
-    List<TeamEntity> toEntities(List<Team> teams);
+    @Mapping(target = "id", source = "team.id")
+    @Mapping(target = "name", source = "team.name")
+    @Mapping(target = "teamLead", source = "employeeEntity")
+    TeamEntity toEntity(Team team, EmployeeEntity employeeEntity);
 }

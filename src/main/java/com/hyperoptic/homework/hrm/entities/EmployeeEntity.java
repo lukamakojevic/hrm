@@ -16,6 +16,6 @@ public class EmployeeEntity {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private TeamEntity team;
 }

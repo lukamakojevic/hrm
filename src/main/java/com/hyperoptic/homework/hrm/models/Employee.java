@@ -1,13 +1,14 @@
 package com.hyperoptic.homework.hrm.models;
 
-import com.sun.istack.NotNull;
 import lombok.Data;
+
+import javax.validation.constraints.NotBlank;
 
 @Data
 public class Employee {
     private Integer id;
 
-    @NotNull
+    @NotBlank
     private String name;
 
     private Integer teamId;
