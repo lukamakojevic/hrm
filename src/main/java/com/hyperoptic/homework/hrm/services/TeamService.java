@@ -5,6 +5,7 @@ import com.hyperoptic.homework.hrm.entities.TeamEntity;
 import com.hyperoptic.homework.hrm.exceptions.ExceptionSupplier;
 import com.hyperoptic.homework.hrm.mappers.TeamMapper;
 import com.hyperoptic.homework.hrm.models.Team;
+import com.hyperoptic.homework.hrm.models.TeamSearchParams;
 import com.hyperoptic.homework.hrm.repositories.EmployeeRepository;
 import com.hyperoptic.homework.hrm.repositories.SearchRepository;
 import com.hyperoptic.homework.hrm.repositories.TeamRepository;
@@ -31,7 +32,7 @@ public class TeamService {
             employeeEntity = employeeRepository.findById(team.getTeamLeadId())
                     .orElseThrow(ExceptionSupplier.EMPLOYEE_NOT_FOUND);
 
-            if (nonNull(employeeEntity.getTeamLeadOf())) {
+            if (nonNull(employeeEntity.getLeadingTeam())) {
                 throw ExceptionSupplier.EMPLOYEE_TEAM_LEAD_ALREADY.get();
             }
         }
@@ -41,8 +42,8 @@ public class TeamService {
         return teamMapper.toDto(teamRepository.saveAndFlush(teamEntity));
     }
 
-    public List<Team> read(List<String> names, List<String> teamLeadNames) {
-        return teamMapper.toDtos(searchRepository.findTeams(names, teamLeadNames));
+    public List<Team> read(TeamSearchParams searchParams) {
+        return teamMapper.toDtos(searchRepository.findTeams(searchParams));
     }
 
     public Team read(Integer id) {
@@ -59,6 +60,10 @@ public class TeamService {
         if (nonNull(team.getTeamLeadId())) {
             employeeEntity = employeeRepository.findById(team.getTeamLeadId())
                     .orElseThrow(ExceptionSupplier.EMPLOYEE_NOT_FOUND);
+
+            if (nonNull(employeeEntity.getLeadingTeam())) {
+                throw ExceptionSupplier.EMPLOYEE_TEAM_LEAD_ALREADY.get();
+            }
         }
 
         team.setId(id);

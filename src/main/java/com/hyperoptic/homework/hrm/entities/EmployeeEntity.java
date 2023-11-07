@@ -20,5 +20,5 @@ public class EmployeeEntity {
     private TeamEntity team;
 
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "teamLead")
-    private TeamEntity teamLeadOf;
+    private TeamEntity leadingTeam;
 }

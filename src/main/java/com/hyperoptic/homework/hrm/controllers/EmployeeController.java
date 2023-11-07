@@ -1,6 +1,7 @@
 package com.hyperoptic.homework.hrm.controllers;
 
 import com.hyperoptic.homework.hrm.models.Employee;
+import com.hyperoptic.homework.hrm.models.EmployeeSearchParams;
 import com.hyperoptic.homework.hrm.services.EmployeeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,8 +25,16 @@ public class EmployeeController {
     @GetMapping(value = "/employees")
     public ResponseEntity<List<Employee>> read(
             @RequestParam(required = false) List<String> names,
-            @RequestParam(required = false) List<String> teamNames) {
-        return ResponseEntity.ok(employeeService.read(names, teamNames));
+            @RequestParam(required = false) List<String> teamNames,
+            @RequestParam(required = false) List<String> leadingTeamNames) {
+
+        EmployeeSearchParams searchParams = EmployeeSearchParams.builder()
+                .names(names)
+                .teamNames(teamNames)
+                .leadingTeamNames(leadingTeamNames)
+                .build();
+
+        return ResponseEntity.ok(employeeService.read(searchParams));
     }
 
     @GetMapping(value = "/employees/{id}")
