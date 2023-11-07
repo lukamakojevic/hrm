@@ -33,6 +33,7 @@ public class EmployeeService {
                     .orElseThrow(ExceptionSupplier.TEAM_NOT_FOUND);
         }
 
+        employee.setId(null);
         EmployeeEntity employeeEntity = employeeMapper.toEntity(employee, teamEntity);
 
         return employeeMapper.toDto(employeeRepository.saveAndFlush(employeeEntity));

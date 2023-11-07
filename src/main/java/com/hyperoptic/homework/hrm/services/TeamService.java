@@ -37,6 +37,7 @@ public class TeamService {
             }
         }
 
+        team.setId(null);
         TeamEntity teamEntity = teamMapper.toEntity(team, employeeEntity);
 
         return teamMapper.toDto(teamRepository.saveAndFlush(teamEntity));
