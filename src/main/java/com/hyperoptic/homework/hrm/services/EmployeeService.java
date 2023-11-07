@@ -5,6 +5,7 @@ import com.hyperoptic.homework.hrm.entities.TeamEntity;
 import com.hyperoptic.homework.hrm.exceptions.ExceptionSupplier;
 import com.hyperoptic.homework.hrm.mappers.EmployeeMapper;
 import com.hyperoptic.homework.hrm.models.Employee;
+import com.hyperoptic.homework.hrm.models.EmployeeSearchParams;
 import com.hyperoptic.homework.hrm.repositories.EmployeeRepository;
 import com.hyperoptic.homework.hrm.repositories.SearchRepository;
 import com.hyperoptic.homework.hrm.repositories.TeamRepository;
@@ -37,8 +38,8 @@ public class EmployeeService {
         return employeeMapper.toDto(employeeRepository.saveAndFlush(employeeEntity));
     }
 
-    public List<Employee> read(List<String> names, List<String> teamNames) {
-        return employeeMapper.toDtos(searchRepository.findEmployees(names, teamNames));
+    public List<Employee> read(EmployeeSearchParams searchParams) {
+        return employeeMapper.toDtos(searchRepository.findEmployees(searchParams));
     }
 
     public Employee read(Integer id) {
