@@ -39,3 +39,7 @@ To explore the REST API documentation in detail, follow these steps:
 2. Access the following link: [http://localhost:8080/swagger-ui/index.html](http://localhost:8080/swagger-ui/index.html)
 
    (Note: The default port is 8080, but it may be different if you've configured a different port in your application.)
+   
+## Postman Collection
+
+In the `postman` folder of this repository, you'll find a collection of all available requests that can be imported and used for testing. The collection is provided to facilitate testing and interaction with the HR management API.
