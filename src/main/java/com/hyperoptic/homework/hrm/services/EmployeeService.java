@@ -43,7 +43,8 @@ public class EmployeeService {
     }
 
     public Employee read(Integer id) {
-        return employeeMapper.toDto(employeeRepository.findById(id)
+        return employeeMapper.toDto(
+                employeeRepository.findById(id)
                 .orElseThrow(ExceptionSupplier.EMPLOYEE_NOT_FOUND));
     }
 

@@ -47,7 +47,8 @@ public class TeamService {
     }
 
     public Team read(Integer id) {
-        return teamMapper.toDto(teamRepository.findById(id)
+        return teamMapper.toDto(
+                teamRepository.findById(id)
                 .orElseThrow(ExceptionSupplier.TEAM_NOT_FOUND));
     }
 

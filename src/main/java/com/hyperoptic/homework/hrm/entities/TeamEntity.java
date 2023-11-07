@@ -1,5 +1,6 @@
 package com.hyperoptic.homework.hrm.entities;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "team")
 @Getter
 @Setter
+@Builder
 public class TeamEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
