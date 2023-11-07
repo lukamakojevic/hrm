@@ -3,8 +3,12 @@ package com.hyperoptic.homework.hrm.controllers;
 import com.hyperoptic.homework.hrm.models.Employee;
 import com.hyperoptic.homework.hrm.models.EmployeeSearchParams;
 import com.hyperoptic.homework.hrm.services.EmployeeService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,20 +17,29 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@Tag(name = "REST endpoints for managing employees")
 public class EmployeeController {
 
     private final EmployeeService employeeService;
 
-    @PostMapping(value = "/employees")
+    @Operation(summary = "Create new employee")
+    @PostMapping(value = "/employees",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> create(@RequestBody @Valid Employee employee) {
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.create(employee));
     }
 
-    @GetMapping(value = "/employees")
+    @Operation(summary = "Read employees with search options")
+    @GetMapping(value = "/employees",
+            produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Employee>> read(
-            @RequestParam(required = false) List<String> names,
-            @RequestParam(required = false) List<String> teamNames,
-            @RequestParam(required = false) List<String> leadingTeamNames) {
+            @RequestParam(required = false)
+            @Parameter(description = "Search by any of listed employee names") List<String> names,
+            @RequestParam(required = false)
+            @Parameter(description = "Search by any of listed team names") List<String> teamNames,
+            @RequestParam(required = false)
+            @Parameter(description = "Search by any of listed team names") List<String> leadingTeamNames) {
 
         EmployeeSearchParams searchParams = EmployeeSearchParams.builder()
                 .names(names)
@@ -37,18 +50,25 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.read(searchParams));
     }
 
-    @GetMapping(value = "/employees/{id}")
-    public ResponseEntity<Employee> read(@PathVariable Integer id) {
+    @Operation(summary = "Read existing employee")
+    @GetMapping(value = "/employees/{id}",
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Employee> read(@PathVariable @Parameter(description = "Id of existing employee") Integer id) {
         return ResponseEntity.ok(employeeService.read(id));
     }
 
-    @PutMapping(value = "/employees/{id}")
-    public ResponseEntity<Employee> update(@PathVariable Integer id, @RequestBody @Valid Employee employee) {
+    @Operation(summary = "Update existing employee")
+    @PutMapping(value = "/employees/{id}",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Employee> update(@PathVariable @Parameter(description = "Id of existing employee") Integer id,
+                                           @RequestBody @Valid Employee employee) {
         return ResponseEntity.ok(employeeService.update(id, employee));
     }
 
+    @Operation(summary = "Delete existing employee")
     @DeleteMapping(value = "/employees/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable @Parameter(description = "Id of existing employee") Integer id) {
         employeeService.delete(id);
         return ResponseEntity.ok().build();
     }
