@@ -4,9 +4,10 @@ CREATE TABLE `hrm`.`team` (
   `team_lead_id` INT NULL,
   PRIMARY KEY (`id`),
   INDEX `team_lead_id_fk_idx` (`team_lead_id` ASC) VISIBLE,
+  UNIQUE INDEX `team_lead_id_unique_idx` (`team_lead_id` ASC) VISIBLE,
   CONSTRAINT `team_lead_id_fk`
     FOREIGN KEY (`team_lead_id`)
     REFERENCES `hrm`.`employee` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION
+    ON DELETE SET NULL
+    ON UPDATE CASCADE
 );

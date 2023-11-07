@@ -5,5 +5,5 @@ ALTER TABLE `hrm`.`employee`
 ADD CONSTRAINT `team_id_fk`
   FOREIGN KEY (`team_id`)
   REFERENCES `hrm`.`team` (`id`)
-  ON DELETE NO ACTION
-  ON UPDATE NO ACTION;
+  ON DELETE SET NULL
+  ON UPDATE CASCADE;
