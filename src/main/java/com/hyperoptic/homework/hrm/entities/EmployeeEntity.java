@@ -18,4 +18,7 @@ public class EmployeeEntity {
 
     @ManyToOne
     private TeamEntity team;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "teamLead")
+    private TeamEntity teamLeadOf;
 }

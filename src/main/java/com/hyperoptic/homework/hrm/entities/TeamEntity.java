@@ -1,6 +1,6 @@
 package com.hyperoptic.homework.hrm.entities;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -8,7 +8,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "team")
-@Data
+@Getter
 @Setter
 public class TeamEntity {
     @Id
@@ -18,7 +18,7 @@ public class TeamEntity {
     private String name;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "team_lead_id", referencedColumnName = "id")
+    @JoinColumn(name = "team_lead_id", referencedColumnName = "id", unique = true)
     private EmployeeEntity teamLead;
 
     @OneToMany(mappedBy = "team", fetch = FetchType.LAZY)

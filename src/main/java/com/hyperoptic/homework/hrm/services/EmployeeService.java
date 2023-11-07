@@ -29,7 +29,7 @@ public class EmployeeService {
 
         if (nonNull(employee.getTeamId())) {
             teamEntity = teamRepository.findById(employee.getTeamId())
-                    .orElseThrow(ExceptionSupplier.BAD_REQUEST);
+                    .orElseThrow(ExceptionSupplier.TEAM_NOT_FOUND);
         }
 
         EmployeeEntity employeeEntity = employeeMapper.toEntity(employee, teamEntity);
@@ -43,18 +43,18 @@ public class EmployeeService {
 
     public Employee read(Integer id) {
         return employeeMapper.toDto(employeeRepository.findById(id)
-                .orElseThrow(ExceptionSupplier.BAD_REQUEST));
+                .orElseThrow(ExceptionSupplier.EMPLOYEE_NOT_FOUND));
     }
 
     public Employee update(Integer id, Employee employee) {
         employeeRepository.findById(id)
-                .orElseThrow(ExceptionSupplier.BAD_REQUEST);
+                .orElseThrow(ExceptionSupplier.EMPLOYEE_NOT_FOUND);
 
         TeamEntity teamEntity = null;
 
         if (nonNull(employee.getTeamId())) {
             teamEntity = teamRepository.findById(employee.getTeamId())
-                    .orElseThrow(ExceptionSupplier.BAD_REQUEST);
+                    .orElseThrow(ExceptionSupplier.TEAM_NOT_FOUND);
         }
 
         employee.setId(id);
@@ -65,7 +65,7 @@ public class EmployeeService {
 
     public void delete(Integer id) {
         employeeRepository.findById(id)
-                .orElseThrow(ExceptionSupplier.BAD_REQUEST);
+                .orElseThrow(ExceptionSupplier.EMPLOYEE_NOT_FOUND);
 
         employeeRepository.deleteById(id);
     }

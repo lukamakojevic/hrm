@@ -10,9 +10,21 @@ public class ExceptionSupplier {
         throw new IllegalStateException("Utility class");
     }
 
-    public static final Supplier<HrmException> BAD_REQUEST =
+    public static final Supplier<HrmException> EMPLOYEE_NOT_FOUND =
             () -> HrmException.builder()
                     .status(HttpStatus.BAD_REQUEST)
-                    .errorCode(ErrorCodes.BAD_REQUEST)
+                    .errorCode(ErrorCodes.EMPLOYEE_NOT_FOUND)
+                    .build();
+
+    public static final Supplier<HrmException> TEAM_NOT_FOUND =
+            () -> HrmException.builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .errorCode(ErrorCodes.TEAM_NOT_FOUND)
+                    .build();
+
+    public static final Supplier<HrmException> EMPLOYEE_TEAM_LEAD_ALREADY =
+            () -> HrmException.builder()
+                    .status(HttpStatus.BAD_REQUEST)
+                    .errorCode(ErrorCodes.EMPLOYEE_TEAM_LEAD_ALREADY)
                     .build();
 }
