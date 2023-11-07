@@ -18,21 +18,20 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "REST endpoints for managing teams")
+@RequestMapping(value = "/api/teams")
 public class TeamController {
 
     private final TeamService teamService;
 
     @Operation(summary = "Create new team")
-    @PostMapping(value = "/teams",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Team> create(@RequestBody @Valid Team team) {
         return ResponseEntity.status(HttpStatus.CREATED).body(teamService.create(team));
     }
 
     @Operation(summary = "Read teams with search options")
-    @GetMapping(value = "/teams",
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Team>> read(
             @RequestParam(required = false)
             @Parameter(description = "Search by any of listed team names") List<String> names,
@@ -51,14 +50,13 @@ public class TeamController {
     }
 
     @Operation(summary = "Read existing team")
-    @GetMapping(value = "/teams/{id}",
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Team> read(@PathVariable @Parameter(description = "Id of existing team") Integer id) {
         return ResponseEntity.ok(teamService.read(id));
     }
 
     @Operation(summary = "Update existing team")
-    @PutMapping(value = "/teams/{id}",
+    @PutMapping(value = "/{id}",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Team> update(@PathVariable @Parameter(description = "Id of existing team") Integer id,
@@ -67,7 +65,7 @@ public class TeamController {
     }
 
     @Operation(summary = "Delete existing team")
-    @DeleteMapping(value = "/teams/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable @Parameter(description = "Id of existing team") Integer id) {
         teamService.delete(id);
         return ResponseEntity.ok().build();
