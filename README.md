@@ -43,3 +43,11 @@ To explore the REST API documentation in detail, follow these steps:
 ## Postman Collection
 
 In the `postman` folder of this repository, you'll find a collection of all available requests that can be imported and used for testing. The collection is provided to facilitate testing and interaction with the HR management API.
+
+## Testing and Code Coverage
+
+We have conducted comprehensive testing for this application, including unit and integration tests for all important components, such as controllers, services, custom repositories, and configurations.
+
+Here is the code coverage report for our tests:
+
+![Code Coverage](./test-coverage.png)
