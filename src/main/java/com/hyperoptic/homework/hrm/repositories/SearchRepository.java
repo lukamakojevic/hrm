@@ -32,17 +32,17 @@ public class SearchRepository {
     List<Predicate> predicates = new ArrayList<>();
 
     if (nonNull(names) && !names.isEmpty()) {
-      Predicate anyOfNamesLike =
+      Predicate nameLikeAnyOf =
           cb.or(
               names.stream()
                   .map(name -> cb.like(employeeEntity.get("name"), "%" + name + "%"))
                   .toArray(Predicate[]::new));
 
-      predicates.add(anyOfNamesLike);
+      predicates.add(nameLikeAnyOf);
     }
 
     if (nonNull(teamNames) && !teamNames.isEmpty()) {
-      Predicate anyOfTeamNamesLike =
+      Predicate teamNameLikeAnyOf =
           cb.or(
               teamNames.stream()
                   .map(
@@ -50,11 +50,11 @@ public class SearchRepository {
                           cb.like(employeeEntity.get("team").get("name"), "%" + teamName + "%"))
                   .toArray(Predicate[]::new));
 
-      predicates.add(anyOfTeamNamesLike);
+      predicates.add(teamNameLikeAnyOf);
     }
 
     if (nonNull(leadingTeamNames) && !leadingTeamNames.isEmpty()) {
-      Predicate anyOfLeadingTeamNamesLike =
+      Predicate leadingTeamNameLikeAnyOf =
           cb.or(
               leadingTeamNames.stream()
                   .map(
@@ -64,7 +64,7 @@ public class SearchRepository {
                               "%" + leadingTeamName + "%"))
                   .toArray(Predicate[]::new));
 
-      predicates.add(anyOfLeadingTeamNamesLike);
+      predicates.add(leadingTeamNameLikeAnyOf);
     }
 
     cq.where(predicates.toArray(new Predicate[0]));
@@ -85,17 +85,17 @@ public class SearchRepository {
     List<Predicate> predicates = new ArrayList<>();
 
     if (nonNull(names) && !names.isEmpty()) {
-      Predicate anyOfNamesLike =
+      Predicate nameLikeAnyOf =
           cb.or(
               names.stream()
                   .map(name -> cb.like(teamEntity.get("name"), "%" + name + "%"))
                   .toArray(Predicate[]::new));
 
-      predicates.add(anyOfNamesLike);
+      predicates.add(nameLikeAnyOf);
     }
 
     if (nonNull(teamLeadNames) && !teamLeadNames.isEmpty()) {
-      Predicate anyOfTeamLeadNamesLike =
+      Predicate teamLeadNameLikeAnyOf =
           cb.or(
               teamLeadNames.stream()
                   .map(
@@ -103,20 +103,20 @@ public class SearchRepository {
                           cb.like(teamEntity.get("teamLead").get("name"), "%" + teamName + "%"))
                   .toArray(Predicate[]::new));
 
-      predicates.add(anyOfTeamLeadNamesLike);
+      predicates.add(teamLeadNameLikeAnyOf);
     }
 
     if (nonNull(teamMemberNames) && !teamMemberNames.isEmpty()) {
       Join<TeamEntity, EmployeeEntity> teamMemberJoin =
           teamEntity.join("teamMembers", JoinType.INNER);
 
-      Predicate anyOfTeamMemberNamesLike =
+      Predicate anyOfTeamMemberNamesLikeAnyOf =
           cb.or(
               teamMemberNames.stream()
                   .map(memberName -> cb.like(teamMemberJoin.get("name"), "%" + memberName + "%"))
                   .toArray(Predicate[]::new));
 
-      predicates.add(anyOfTeamMemberNamesLike);
+      predicates.add(anyOfTeamMemberNamesLikeAnyOf);
     }
 
     cq.where(predicates.toArray(new Predicate[0])).distinct(true);

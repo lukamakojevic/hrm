@@ -7,6 +7,21 @@ import com.hyperoptic.homework.hrm.models.Team;
 
 public class TestUtils {
 
+  public static final TeamEntity alpha = teamEntity("Alpha");
+  public static final TeamEntity beta = teamEntity("Beta");
+  public static final TeamEntity gamma = teamEntity("Gamma");
+  public static final TeamEntity delta = teamEntity("Delta");
+
+  public static final EmployeeEntity gandalf = employeeEntity("Gandalf");
+  public static final EmployeeEntity aragorn = employeeEntity("Aragorn");
+  public static final EmployeeEntity legolas = employeeEntity("Legolas");
+  public static final EmployeeEntity gimli = employeeEntity("Gimli");
+  public static final EmployeeEntity frodo = employeeEntity("Frodo");
+  public static final EmployeeEntity sam = employeeEntity("Sam");
+  public static final EmployeeEntity merry = employeeEntity("Merry");
+  public static final EmployeeEntity pippin = employeeEntity("Pipin");
+  public static final EmployeeEntity boromir = employeeEntity("Boromir");
+
   public static final Integer EMPLOYEE_ID = 123;
   public static final Integer TEAM_ID = 456;
 
