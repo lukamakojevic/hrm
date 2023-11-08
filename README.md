@@ -46,7 +46,7 @@ In the `postman` folder of this repository, you'll find a collection of all avai
 
 ## Testing and Code Coverage
 
-We have conducted comprehensive testing for this application, including unit and integration tests for all important components, such as controllers, services, custom repositories, and configurations.
+I have conducted comprehensive testing for this application, including unit and integration tests for all important components, such as controllers, services, custom repositories, and configurations.
 
 Here is the code coverage report for our tests:
 
