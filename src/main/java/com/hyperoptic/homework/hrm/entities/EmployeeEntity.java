@@ -1,8 +1,7 @@
 package com.hyperoptic.homework.hrm.entities;
 
-import lombok.*;
-
 import javax.persistence.*;
+import lombok.*;
 
 @Entity
 @Table(name = "employee")
@@ -12,15 +11,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
-    private String name;
+  private String name;
 
-    @ManyToOne
-    private TeamEntity team;
+  @ManyToOne private TeamEntity team;
 
-    @OneToOne(fetch = FetchType.LAZY, mappedBy = "teamLead")
-    private TeamEntity leadingTeam;
+  @OneToOne(fetch = FetchType.LAZY, mappedBy = "teamLead")
+  private TeamEntity leadingTeam;
 }

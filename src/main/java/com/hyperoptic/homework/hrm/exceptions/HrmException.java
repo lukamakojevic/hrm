@@ -11,6 +11,6 @@ import org.springframework.http.HttpStatus;
 @EqualsAndHashCode(callSuper = false)
 @ToString
 public class HrmException extends RuntimeException {
-    private final HttpStatus status;
-    private final String errorCode;
+  private final HttpStatus status;
+  private final String errorCode;
 }
