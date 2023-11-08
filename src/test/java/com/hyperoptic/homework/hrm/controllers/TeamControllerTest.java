@@ -1,9 +1,18 @@
 package com.hyperoptic.homework.hrm.controllers;
 
+import static com.hyperoptic.homework.hrm.TestUtils.*;
+import static org.junit.jupiter.params.provider.Arguments.arguments;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.hyperoptic.homework.hrm.models.Team;
 import com.hyperoptic.homework.hrm.models.TeamSearchParams;
 import com.hyperoptic.homework.hrm.services.TeamService;
+import java.net.URI;
+import java.util.List;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,150 +27,133 @@ import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import java.net.URI;
-import java.util.List;
-import java.util.stream.Stream;
-
-import static com.hyperoptic.homework.hrm.TestUtils.*;
-import static org.junit.jupiter.params.provider.Arguments.arguments;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.verifyNoInteractions;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 @SpringBootTest
 @AutoConfigureMockMvc
 class TeamControllerTest {
 
-    public static final String BASE_PATH = "/api/teams";
+  public static final String BASE_PATH = "/api/teams";
 
-    @Autowired
-    private MockMvc mockMvc;
+  @Autowired private MockMvc mockMvc;
 
-    @Autowired
-    private ObjectMapper mapper;
+  @Autowired private ObjectMapper mapper;
 
-    @MockBean
-    private TeamService teamService;
+  @MockBean private TeamService teamService;
 
-    @Test
-    void create() throws Exception {
-        Team team = team();
+  @Test
+  void create() throws Exception {
+    Team team = team();
 
-        URI uri = URI.create(BASE_PATH);
+    URI uri = URI.create(BASE_PATH);
 
-        RequestBuilder request = MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(team));
+    RequestBuilder request =
+        MockMvcRequestBuilders.post(uri)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(team));
 
-        mockMvc.perform(request).andExpect(status().isCreated());
+    mockMvc.perform(request).andExpect(status().isCreated());
 
-        verify(teamService).create(team);
-    }
+    verify(teamService).create(team);
+  }
 
-    @ParameterizedTest
-    @MethodSource("invalidNameTestCases")
-    void createWithInvalidName(String invalidName) throws Exception {
-        Team team = team();
-        team.setName(invalidName);
+  @ParameterizedTest
+  @MethodSource("invalidNameTestCases")
+  void createWithInvalidName(String invalidName) throws Exception {
+    Team team = team();
+    team.setName(invalidName);
 
-        URI uri = URI.create(BASE_PATH);
+    URI uri = URI.create(BASE_PATH);
 
-        RequestBuilder request = MockMvcRequestBuilders.post(uri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(team));
+    RequestBuilder request =
+        MockMvcRequestBuilders.post(uri)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(team));
 
-        mockMvc.perform(request).andExpect(status().isBadRequest());
+    mockMvc.perform(request).andExpect(status().isBadRequest());
 
-        verifyNoInteractions(teamService);
-    }
+    verifyNoInteractions(teamService);
+  }
 
-    @Test
-    void read() throws Exception {
-        URI uri = UriComponentsBuilder.fromPath(BASE_PATH + "/{id}")
-                .buildAndExpand(TEAM_ID)
-                .toUri();
+  @Test
+  void read() throws Exception {
+    URI uri = UriComponentsBuilder.fromPath(BASE_PATH + "/{id}").buildAndExpand(TEAM_ID).toUri();
 
-        RequestBuilder request = MockMvcRequestBuilders.get(uri);
+    RequestBuilder request = MockMvcRequestBuilders.get(uri);
 
-        mockMvc.perform(request)
-                .andExpect(status().isOk());
+    mockMvc.perform(request).andExpect(status().isOk());
 
-        verify(teamService).read(TEAM_ID);
-    }
+    verify(teamService).read(TEAM_ID);
+  }
 
-    @Test
-    void readWithFilters() throws Exception {
-        TeamSearchParams searchParams = TeamSearchParams.builder()
-                .names(List.of(TEAM_NAME))
-                .teamLeadNames(List.of(EMPLOYEE_NAME))
-                .teamMemberNames(List.of(EMPLOYEE_NAME))
-                .build();
+  @Test
+  void readWithFilters() throws Exception {
+    TeamSearchParams searchParams =
+        TeamSearchParams.builder()
+            .names(List.of(TEAM_NAME))
+            .teamLeadNames(List.of(EMPLOYEE_NAME))
+            .teamMemberNames(List.of(EMPLOYEE_NAME))
+            .build();
 
-        URI uri = UriComponentsBuilder.fromPath(BASE_PATH)
-                .queryParam("names", List.of(TEAM_NAME))
-                .queryParam("teamLeadNames", List.of(EMPLOYEE_NAME))
-                .queryParam("teamMemberNames", List.of(EMPLOYEE_NAME))
-                .buildAndExpand()
-                .toUri();
+    URI uri =
+        UriComponentsBuilder.fromPath(BASE_PATH)
+            .queryParam("names", List.of(TEAM_NAME))
+            .queryParam("teamLeadNames", List.of(EMPLOYEE_NAME))
+            .queryParam("teamMemberNames", List.of(EMPLOYEE_NAME))
+            .buildAndExpand()
+            .toUri();
 
-        RequestBuilder request = MockMvcRequestBuilders.get(uri);
+    RequestBuilder request = MockMvcRequestBuilders.get(uri);
 
-        mockMvc.perform(request).andExpect(status().isOk());
+    mockMvc.perform(request).andExpect(status().isOk());
 
-        verify(teamService).read(searchParams);
-    }
+    verify(teamService).read(searchParams);
+  }
 
-    @Test
-    void update() throws Exception {
-        Team team = team();
+  @Test
+  void update() throws Exception {
+    Team team = team();
 
-        URI uri = UriComponentsBuilder.fromPath(BASE_PATH + "/{id}")
-                .buildAndExpand(TEAM_ID)
-                .toUri();
+    URI uri = UriComponentsBuilder.fromPath(BASE_PATH + "/{id}").buildAndExpand(TEAM_ID).toUri();
 
-        RequestBuilder request = MockMvcRequestBuilders.put(uri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(team));
+    RequestBuilder request =
+        MockMvcRequestBuilders.put(uri)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(team));
 
-        mockMvc.perform(request).andExpect(status().isOk());
+    mockMvc.perform(request).andExpect(status().isOk());
 
-        verify(teamService).update(TEAM_ID, team);
-    }
+    verify(teamService).update(TEAM_ID, team);
+  }
 
-    @ParameterizedTest
-    @MethodSource("invalidNameTestCases")
-    void updateWithInvalidName(String invalidName) throws Exception {
-        Team team = team();
-        team.setName(invalidName);
+  @ParameterizedTest
+  @MethodSource("invalidNameTestCases")
+  void updateWithInvalidName(String invalidName) throws Exception {
+    Team team = team();
+    team.setName(invalidName);
 
-        URI uri = UriComponentsBuilder.fromPath(BASE_PATH + "/{id}")
-                .buildAndExpand(TEAM_ID)
-                .toUri();
+    URI uri = UriComponentsBuilder.fromPath(BASE_PATH + "/{id}").buildAndExpand(TEAM_ID).toUri();
 
-        RequestBuilder request = MockMvcRequestBuilders.put(uri)
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(mapper.writeValueAsString(team));
+    RequestBuilder request =
+        MockMvcRequestBuilders.put(uri)
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(mapper.writeValueAsString(team));
 
-        mockMvc.perform(request).andExpect(status().isBadRequest());
+    mockMvc.perform(request).andExpect(status().isBadRequest());
 
-        verifyNoInteractions(teamService);
-    }
+    verifyNoInteractions(teamService);
+  }
 
-    @Test
-    void delete() throws Exception {
-        URI uri = UriComponentsBuilder.fromPath(BASE_PATH + "/{id}")
-                .buildAndExpand(TEAM_ID)
-                .toUri();
+  @Test
+  void delete() throws Exception {
+    URI uri = UriComponentsBuilder.fromPath(BASE_PATH + "/{id}").buildAndExpand(TEAM_ID).toUri();
 
-        RequestBuilder request = MockMvcRequestBuilders.delete(uri);
+    RequestBuilder request = MockMvcRequestBuilders.delete(uri);
 
-        mockMvc.perform(request)
-                .andExpect(status().isOk());
+    mockMvc.perform(request).andExpect(status().isOk());
 
-        verify(teamService).delete(TEAM_ID);
-    }
+    verify(teamService).delete(TEAM_ID);
+  }
 
-    static Stream<Arguments> invalidNameTestCases() {
-        return Stream.of(arguments((Object) null), arguments(" "), arguments(""));
-    }
+  static Stream<Arguments> invalidNameTestCases() {
+    return Stream.of(arguments((Object) null), arguments(" "), arguments(""));
+  }
 }
