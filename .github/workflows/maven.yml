@@ -1,0 +1,13 @@
+name: Run tests
+on:
+  pull_request:
+    branches: [ "master" ]
+jobs:
+  build:
+    name: Build and Run Tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v1
+      - name: Build and run tests
+        run: mvn  -f ./pom.xml clean test
