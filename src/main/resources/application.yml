@@ -14,5 +14,4 @@ spring:
 #        show_sql: true
 #        format_sql: true
   flyway:
-    table: flyway_schema_history
     locations: classpath:db/migrations
