@@ -13,6 +13,6 @@ jobs:
           distribution: 'liberica'
           java-version: '17'
       - name: Checkout Code
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Build and run tests
         run: mvn clean test
