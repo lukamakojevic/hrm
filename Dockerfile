@@ -5,7 +5,7 @@ FROM libertica/openjdk:17
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY target/your-app.jar /app/app.jar
+COPY target/hrm.jar /app/app.jar
 
 # Expose the port that your application runs on
 EXPOSE 8080
