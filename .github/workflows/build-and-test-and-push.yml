@@ -4,7 +4,6 @@ on:
     branches: [ "master" ]
 jobs:
   build:
-    name: Build and Run Tests
     runs-on: ubuntu-latest
     steps:
       - name: Set up Java 17
