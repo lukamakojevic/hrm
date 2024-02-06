@@ -8,11 +8,13 @@
 		<version>2.7.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
+	
 	<groupId>com.hyperoptic.homework</groupId>
 	<artifactId>hrm</artifactId>
 	<version>1.0.0</version>
 	<name>hrm</name>
 	<description>Homework project for Hyperoptic</description>
+	
 	<properties>
 		<java.version>17</java.version>
 	</properties>
