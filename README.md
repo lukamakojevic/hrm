@@ -26,8 +26,8 @@ To connect the application to the MySQL database, follow these steps:
 
 2. Set the following environment variables with your database information:
 
-   - `DATASOURCE_PASSWORD` (e.g., root)
-   - `DATASOURCE_USERNAME` (e.g., root)
+   - `DATASOURCE_PASSWORD` (e.g. root)
+   - `DATASOURCE_USERNAME` (e.g. root)
    - `DB_WRITER` (e.g., localhost:3306)
 
 ## REST Documentation
