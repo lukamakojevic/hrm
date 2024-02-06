@@ -14,7 +14,7 @@ Some functionalities and features of the application include:
 
 - **Spring Boot**: The project was developed using Spring Boot, which provides a robust and easy-to-use framework for building Java applications.
 
-- **Java 8**: The application is written in Java 8, taking advantage of its features and capabilities.
+- **Java 17**: The application is written in Java 17, taking advantage of its features and capabilities.
 
 - **MySQL Database**: A MySQL relational database is used for data storage. To connect the application to the database, follow the instructions below.
 
