@@ -4,6 +4,7 @@ on:
     branches: [ "master" ]
 jobs:
   build:
+    name: Build, Test and Push Docker Image
     runs-on: ubuntu-latest
     steps:
       - name: Set up Java 17
