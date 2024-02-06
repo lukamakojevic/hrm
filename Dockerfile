@@ -1,5 +1,5 @@
 # Use the Libertica base image with Java 17
-FROM libertica/openjdk:17
+FROM bellsoft/liberica-openjdk-alpine:17
 
 # Set the working directory
 WORKDIR /app
