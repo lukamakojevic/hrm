@@ -7,10 +7,11 @@ jobs:
     name: Build and Run Tests
     runs-on: ubuntu-latest
     steps:
-      - name: Set up Libertica (Java 17)
-        run: |
-          curl -sL https://get.liberti.ca | sudo bash
-          libertica install openjdk@17
+      - name: Set up Java 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
       - name: Checkout Code
         uses: actions/checkout@v1
       - name: Build and run tests
