@@ -1,0 +1,15 @@
+docker network create hrm-mysql-net || true
+
+docker run --name hrm-mysql-database \
+--network hrm-mysql-net \
+--publish 3307:3306 \
+--env MYSQL_ROOT_PASSWORD=rootroot \
+--detach mysql:latest
+
+docker run --name hrm-app \
+--network hrm-mysql-net \
+--publish 8080:8080 \
+--env DB_WRITER=hrm-mysql-database:3306 \
+--env DATASOURCE_USERNAME=root \
+--env DATASOURCE_PASSWORD=rootroot \
+--detach lukamakojevic/hrm:latest
