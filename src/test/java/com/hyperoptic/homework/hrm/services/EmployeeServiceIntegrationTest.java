@@ -27,7 +27,6 @@ class EmployeeServiceIntegrationTest {
   @BeforeEach
   void setUp() {
     employeeRepository.deleteAll();
-    employeeRepository.flush();
     teamRepository.deleteAll();
   }
 
