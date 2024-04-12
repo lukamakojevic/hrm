@@ -18,7 +18,7 @@ public class TeamEntity {
 
   private String name;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "team_lead_id", referencedColumnName = "id", unique = true)
   private EmployeeEntity teamLead;
 

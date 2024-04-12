@@ -17,7 +17,7 @@ public class EmployeeEntity {
 
   private String name;
 
-  @ManyToOne(cascade = CascadeType.REMOVE)
+  @ManyToOne
   private TeamEntity team;
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "teamLead")
