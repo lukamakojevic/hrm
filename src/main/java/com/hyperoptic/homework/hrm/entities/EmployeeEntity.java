@@ -12,12 +12,12 @@ import lombok.*;
 @AllArgsConstructor
 public class EmployeeEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
   private String name;
 
-  @ManyToOne
+  @ManyToOne(cascade = CascadeType.REMOVE)
   private TeamEntity team;
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "teamLead")
