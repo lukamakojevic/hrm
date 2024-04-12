@@ -11,9 +11,10 @@ spec:
     metadata:
       labels:
         app: hrm-app
+        type: backend
     spec:
       containers:
         - name: spring-boot-container
-          image: your-docker-username/hrm-app:latest
+          image: lukamakojevic/hrm:latest
           ports:
             - containerPort: 8080
