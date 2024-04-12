@@ -12,7 +12,7 @@ import lombok.*;
 @AllArgsConstructor
 public class EmployeeEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
   private String name;

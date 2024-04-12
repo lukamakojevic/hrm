@@ -13,7 +13,7 @@ import lombok.*;
 @AllArgsConstructor
 public class TeamEntity {
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   private Integer id;
 
   private String name;
