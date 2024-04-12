@@ -17,7 +17,8 @@ public class EmployeeEntity {
 
   private String name;
 
-  @ManyToOne private TeamEntity team;
+  @ManyToOne
+  private TeamEntity team;
 
   @OneToOne(fetch = FetchType.LAZY, mappedBy = "teamLead")
   private TeamEntity leadingTeam;
