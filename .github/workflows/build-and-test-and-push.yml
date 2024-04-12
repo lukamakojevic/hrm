@@ -18,13 +18,15 @@ jobs:
         run: mvn clean test
       - name: Build jar
         run: mvn clean package -DskipTests
-      - name: Build and Push Docker Image
-        uses: mr-smithers-excellent/docker-build-push@v6
-        with:
-          dockerfile: ./docker/Dockerfile
-          image: lukamakojevic/hrm
-          tags: latest
-          registry: docker.io
-          username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_TOKEN }}
-          platform: linux/amd64
+
+      - name: Build Spring Boot application
+        run: ./mvnw -B package --file pom.xml
+        
+      - name: Build Docker image
+        run: docker build -t lukamakojevic/hrm -f ./docker/Dockerfile .
+        
+      - name: Log in to Docker registry
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin ${{ secrets.DOCKER_REGISTRY }}
+      
+      - name: Push Docker image to registry
+        run: docker push lukamakojevic/hrm
