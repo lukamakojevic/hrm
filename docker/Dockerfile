@@ -1,5 +1,5 @@
 # Use the Libertica base image with Java 17
-FROM eclipse-temurin:17-jre-alpine
+FROM bellsoft/liberica-openjdk-alpine:17
 
 # Copy the JAR file into the container
 COPY target/*.jar app.jar
@@ -9,6 +9,3 @@ EXPOSE 8080
 
 # Define the command to run your application
 ENTRYPOINT ["java","-jar","/app.jar"]
-
-
-
