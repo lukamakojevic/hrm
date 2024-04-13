@@ -1,5 +1,5 @@
 # Use the Libertica base image with Java 17
-FROM bellsoft/liberica-openjdk-debian:17
+FROM eclipse-temurin:17-jre-alpine
 
 # Copy the JAR file into the container
 COPY target/*.jar app.jar
