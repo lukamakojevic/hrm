@@ -14,8 +14,10 @@ jobs:
           java-version: '17'
       - name: Checkout Code
         uses: actions/checkout@v2
+        
       - name: Build and run tests
         run: mvn clean test
+        
       - name: Build jar
         run: mvn clean package -DskipTests
 
@@ -26,7 +28,7 @@ jobs:
         run: docker build -t lukamakojevic/hrm -f ./docker/Dockerfile .
         
       - name: Log in to Docker registry
-        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ variables.DOCKER_USERNAME_2 }}" --password-stdin
       
       - name: Push Docker image to registry
         run: docker push lukamakojevic/hrm
