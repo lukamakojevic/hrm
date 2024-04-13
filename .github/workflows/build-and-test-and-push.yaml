@@ -28,7 +28,7 @@ jobs:
         run: docker build -t lukamakojevic/hrm -f ./docker/Dockerfile .
         
       - name: Log in to Docker registry
-        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ DOCKER_USERNAME_2 }}" --password-stdin
+        run: echo "${{ secrets.DOCKER_TOKEN }}" | docker login -u "${{ env.DOCKER_USERNAME_2 }}" --password-stdin
       
       - name: Push Docker image to registry
         run: docker push lukamakojevic/hrm
