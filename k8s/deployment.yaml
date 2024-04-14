@@ -18,3 +18,10 @@ spec:
           image: lukamakojevic/hrm:latest
           ports:
             - containerPort: 8080
+          env:
+            - name: DB_WRITER
+              value: localhost:3306
+            - name: DATASOURCE_USERNAME
+              value: root
+            - name: DATASOURCE_PASSWORD
+              value: rootroot
