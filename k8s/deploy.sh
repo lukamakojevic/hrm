@@ -8,6 +8,8 @@ MYSQL_DEPLOYMENT="mysql-deployment.yaml"
 DEPLOYMENT="deployment.yaml"
 
 # Apply each YAML file
+#kubectl delete all --all
+
 kubectl apply -f "$MYSQL_PV"
 kubectl apply -f "$MYSQL_PVC"
 kubectl apply -f "$MYSQL_SERVICE"
