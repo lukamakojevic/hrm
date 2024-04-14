@@ -20,9 +20,6 @@ jobs:
         
       - name: Build jar
         run: mvn clean package -DskipTests
-
-      - name: Build Spring Boot application
-        run: ./mvnw -B package --file pom.xml
         
       - name: Build Docker image
         run: docker build -t lukamakojevic/hrm -f ./docker/Dockerfile .
