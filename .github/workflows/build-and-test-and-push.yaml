@@ -12,6 +12,7 @@ jobs:
         with:
           distribution: 'liberica'
           java-version: '17'
+          
       - name: Checkout Code
         uses: actions/checkout@v2
         
