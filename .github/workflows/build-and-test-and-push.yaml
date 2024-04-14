@@ -16,10 +16,7 @@ jobs:
         uses: actions/checkout@v2
         
       - name: Build and run tests
-        run: mvn clean test
-        
-      - name: Build jar
-        run: mvn clean package -DskipTests
+        run: mvn clean test package
         
       - name: Build Docker image
         run: docker build -t lukamakojevic/hrm -f ./docker/Dockerfile .
