@@ -13,3 +13,6 @@ docker run --name hrm-app \
 --env DATASOURCE_USERNAME=root \
 --env DATASOURCE_PASSWORD=rootroot \
 --detach lukamakojevic/hrm:latest
+
+minikube service hrm-service --url
+kubectl exec -it mysql-5c65867cb8-mngqb -- /bin/bash

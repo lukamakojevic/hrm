@@ -15,12 +15,12 @@ spec:
     spec:
       containers:
         - name: spring-boot-container
-          image: lukamakojevic/hrm:latest
+          image: lukamakojevic/hrm:arm64
           ports:
             - containerPort: 8080
           env:
             - name: DB_WRITER
-              value: localhost:3306
+              value: mysql
             - name: DATASOURCE_USERNAME
               value: root
             - name: DATASOURCE_PASSWORD
