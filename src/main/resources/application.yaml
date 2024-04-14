@@ -15,4 +15,3 @@ spring:
 #        format_sql: true
   flyway:
     locations: classpath:db/migrations
-    enabled: false
